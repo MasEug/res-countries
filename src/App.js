@@ -10,10 +10,8 @@ const App = () => {
   const regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania']; // regions
   const [array, setArray] = useState([]);
   const {theme, toggleTheme} = useContext(ThemeContext); // select theme
-  const [filter, setFilter] = useState('none');
+  const [filter, setFilter] = useState();
   const [hasError, setError] = useState({error: 'not error', show: false});
-
-  console.log(theme)
 
   useEffect(() => {
     async function fetchData() {
@@ -41,9 +39,8 @@ const App = () => {
         )
       }
 
-      if (res.status === 400) {
-          setArray([])
-          setError({error: res.message, show: true})
+      if (res.status === 404) {
+        res.json().then(res => setError({error: res.message, show: true}))
       }
     }
   }
@@ -63,8 +60,8 @@ const App = () => {
         )
       }
 
-      if (res.status === 400) {
-          setError({error: res.message, show: true})
+      if (res.status === 404) {
+        res.json().then(res => setError({error: res.message, show: true}))
       }
     }
   }
@@ -89,9 +86,8 @@ const App = () => {
                 />
             </div>
             
-          
             <select className="filter" onChange={ChangeFilter} value={filter}>
-              <option value="none">Filter by region</option>
+              {/* <option value="">Filter by region</option> */}
                 {regions.map((region, index)=> (
                   <option value={region} key={index}>{region}</option>
                 ))}
