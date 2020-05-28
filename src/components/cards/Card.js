@@ -4,7 +4,7 @@ import './Card.scss';
 function Card(props) {
 
   return (
-    <div className="card">
+    <div className="card" onClick={() => props.openCard(props.country.name)}>
         <div className="card__box">
             <div className="image" style={{backgroundImage: "url(" + props.country.flag + ")"}} alt="flag" />
             <div className="desc">

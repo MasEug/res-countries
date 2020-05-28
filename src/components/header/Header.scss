@@ -19,15 +19,20 @@ $font-weight-bold: 800;
 }
 
 .header {
-    padding: 24px 80px;
     -webkit-box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
     -moz-box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
     box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
 
     &__box {
+      margin: 0 auto;
+      max-width: 1440px;
       width: 100%;
-      display: flex;
-      justify-content: space-between;
+      
+      .row {
+        display: flex;
+        justify-content: space-between;
+        padding: 24px 80px;
+      }
 
       .title {
         font-size: $font-size-title;
@@ -47,6 +52,34 @@ $font-weight-bold: 800;
           width: 17px;
           height: 20px;
           margin-right: 9px;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .header {
+
+      &__box {
+        .row {
+          padding: 34px 18px 30px 18px;
+        }
+
+        .title {
+          font-size: 13px;
+        }
+
+        .button {
+          margin-top: 0;
+
+          .title {
+            font-size: 12px;
+          }
+
+          .icon {
+            width: 13px;
+            height: 13px;
+          }
         }
       }
     }
