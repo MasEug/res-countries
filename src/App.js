@@ -4,6 +4,7 @@ import Header from './components/header/Header';
 import Filter from './components/filters/Filter';
 import Info from './components/info/Info';
 import Back from './back.svg';
+import BackWhite from './back-white.svg';
 import { ThemeContext } from './ThemeProvider';
 import AppTheme from './AppTheme';
 
@@ -37,6 +38,8 @@ const App = () => {
     let filterSelect = country.target.value;
     setFilterCountry(filterSelect);
 
+    setFilterRegion({filterName: '', dropdown: false})
+
     if(filterSelect) {
       const res = await fetch(`https://restcountries.eu/rest/v2/name/${filterSelect}`);
 
@@ -64,6 +67,7 @@ const App = () => {
 
   const changeFilter = async (name) => {
     setFilterRegion({filterName: name, dropdown: false});
+    setFilterCountry('');
 
     if(name) {
       if (name !== 'Filter by region') {
@@ -131,7 +135,8 @@ const App = () => {
                   color: `${currentTheme.textColor}`,
                   boxShadow: `${currentTheme.boxShadow}`
                 }}
-                className="back" onClick={openInfo}><img className="arrow" src={Back} alt="" />Back</button>
+                className="back" onClick={openInfo}><img className="arrow"
+                src={theme === 'theme-dark' ? BackWhite : Back} alt="" />Back</button>
             </div>
             <main className="content-info">
                 {
