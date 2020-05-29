@@ -1,6 +1,5 @@
 .card {
     border-radius: 4px;
-    background-color: #adadad;
     cursor: pointer;
 
     &__box {
@@ -38,3 +37,53 @@
         }
     }
 }
+
+@media screen and (max-width: 768px) {
+    .card {
+
+        &__box {
+            .image {
+                height: 320px
+            }
+    
+            .desc {
+                padding: 50px 24px 80px 50px;
+    
+                .name {
+                    margin-bottom: 36px;
+                    font-size: 34px;
+                }
+    
+                .title {
+                    margin-bottom: 12px;
+                    font-size: 26px;
+                }
+            }
+        }
+    }
+  }
+
+  @media screen and (max-width: 560px) {
+    .card {
+
+        &__box {
+            .image {
+                height: 160px;
+            }
+    
+            .desc {
+                padding: 24px 24px 34px 24px;
+    
+                .name {
+                    margin-bottom: 16px;
+                    font-size: 18px;
+                }
+    
+                .title {
+                    margin-bottom: 6px;
+                    font-size: 13px;
+                }
+            }
+        }
+    }
+  }

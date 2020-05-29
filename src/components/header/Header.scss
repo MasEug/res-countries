@@ -1,6 +1,3 @@
-$col-white: #fff;
-$col-black: #000;
-
 $font-size-title: 22px;
 $font-size-subtitle: 17px;
 
@@ -8,21 +5,7 @@ $font-weight-light: 300;
 $font-weight-normal: 600;
 $font-weight-bold: 800;
 
-
-
-.theme-dark {
-  --color-bg: hsl(209, 23%, 22%);
-}
-
-.theme-light {
-  --color-bg: hsl(0, 0%, 98%);
-}
-
 .header {
-    -webkit-box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
-    -moz-box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
-    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
-
     &__box {
       margin: 0 auto;
       max-width: 1440px;
@@ -40,11 +23,12 @@ $font-weight-bold: 800;
       }
 
       .button {
+        cursor: pointer;
         margin-top: 5px;
         display: flex;
 
         .title {
-          font-weight: $font-weight-light;
+          font-weight: $font-weight-normal;
           font-size: $font-size-subtitle;
         }
 
@@ -57,28 +41,28 @@ $font-weight-bold: 800;
     }
   }
 
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 768px) {
     .header {
 
       &__box {
         .row {
-          padding: 34px 18px 30px 18px;
+          padding: 64px 30px 60px 30px;
         }
 
         .title {
-          font-size: 13px;
+          font-size: 26px;
         }
 
         .button {
           margin-top: 0;
 
           .title {
-            font-size: 12px;
+            font-size: 26px;
           }
 
           .icon {
-            width: 13px;
-            height: 13px;
+            width: 26px;
+            height: 26px;
           }
         }
       }

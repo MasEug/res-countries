@@ -1,10 +1,17 @@
 import React from 'react';
+import AppTheme from '../../AppTheme';
 import './Card.scss';
 
 function Card(props) {
-
+  const currentTheme = AppTheme[props.theme];
   return (
-    <div className="card" onClick={() => props.openCard(props.country.name)}>
+    <div
+      style={{
+        backgroundColor: `${currentTheme.backgroundColor}`,
+        boxShadow: `${currentTheme.boxShadow}`,
+        color: `${currentTheme.textColor}`
+        }}
+       className="card" onClick={() => props.openCard(props.country.name)}>
         <div className="card__box">
             <div className="image" style={{backgroundImage: "url(" + props.country.flag + ")"}} alt="flag" />
             <div className="desc">

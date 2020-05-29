@@ -1,13 +1,14 @@
 import React from 'react';
+import AppTheme from '../../AppTheme';
 import './Info.scss';
 
 function Info(props) {
-
+  const currentTheme = AppTheme[props.theme];
   return (
-    <div className="info" >
+    <div className="info" style={{color: `${currentTheme.textColor}`}}>
         <div className="info__box">
             
-            <img className="image" src={props.data.flag} alt="flag" />
+            <div className="image" style={{backgroundImage: `url(${props.data.flag})`}} />
 
             <div className="left-column">
                 <div className="title">{props.data.name}</div>
@@ -33,7 +34,13 @@ function Info(props) {
                 <div className="border-countries">
                     <span className="name">Border Countries: </span>
                     {props.data.borders.map((bord, index) => (
-                        <span className="tag" key={index}>{bord} </span>
+                        <span
+                          style={{
+                            backgroundColor: `${currentTheme.backgroundColor}`,
+                            boxShadow: `${currentTheme.boxShadow}`,
+                            color: `${currentTheme.textColor}`
+                          }}
+                          className="tag" key={index}>{bord} </span>
                     ))}
                 </div>
             </div>

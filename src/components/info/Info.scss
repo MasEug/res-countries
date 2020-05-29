@@ -1,5 +1,3 @@
-$col-white: #fff;
-$col-black: #000;
 
 $font-size-title: 22px;
 $font-size-subtitle: 17px;
@@ -11,10 +9,14 @@ $font-weight-bold: 800;
 
 .info {
     &__box {
-        padding: 0 80px;
+        padding: 0 80px 80px 80px;
         display: flex;
+        flex-direction: row;
 
         .image {
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: contain;
             margin-right: 120px;
             max-width: 560px;
             height: 400px;
@@ -34,8 +36,9 @@ $font-weight-bold: 800;
             .row {
                 margin-top: 31px;
                 display: flex;
+                flex-direction: row;
                 justify-content: space-between;
-                font-size: 17px;
+                font-size: $font-size-subtitle;
 
                 .col {
                     > div {
@@ -52,20 +55,90 @@ $font-weight-bold: 800;
                 margin-top: 66px;
 
                 .name {
-                    font-size: 17px;
+                    font-size: $font-size-subtitle;
                     font-weight: $font-weight-normal; 
                 }
 
                 .tag {
+                    vertical-align: baseline;
                     margin-right: 7px;
                     padding: 4px 16px;
-                    background-color: #fff;
-                    color: #000;
                     border-radius: 4px;
-                    box-shadow: rgba(0, 0, 0, 0.5) 0px 4px 8px 0px;
-                    text-transform: capitalize;
+                    line-height: 28px;
+                    text-transform: lowercase;
                 }
             }
         }
     }
 }
+
+@media screen and (max-width: 1000px) {
+    .info {
+        &__box {
+            padding: 0 56px 80px 50px;
+
+            .image {
+                max-width: inherit;
+            }
+        }
+
+        .left-column {
+            .row {
+                flex-direction: column;
+            }
+        }
+    }
+  }
+
+
+
+@media screen and (max-width: 768px) {
+    .info {
+        &__box {
+            flex-direction: column;
+            padding: 14px 56px 80px 50px;
+
+            .image {
+                max-width: inherit;
+                background-size: cover;
+                margin-right: 0;
+                width: 100%;
+                height: 458px;
+            }
+
+            .left-column {
+                margin-top: 90px;
+
+                .title {
+                    font-size: 41px;
+                }
+
+                .row {
+                    margin-top: 51px;
+                    font-size: 29px;
+
+                    .col:last-child {
+                        margin-top: 72px;
+                    }
+
+                    .col > div {
+                        margin-bottom: 23px;
+                    }
+                }
+
+                .border-countries {
+                    .name {
+                        font-size: 32px;
+                    }
+
+                    .tag {
+                        vertical-align: super;
+                        padding: 10px 24px;
+                        line-height: 50px;
+                    }
+                }
+            }
+        }
+    }
+  }
+  

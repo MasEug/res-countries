@@ -5,40 +5,44 @@ import Filter from './components/filters/Filter';
 import Info from './components/info/Info';
 import Back from './back.svg';
 import { ThemeContext } from './ThemeProvider';
+import AppTheme from './AppTheme';
 
 import './App.scss';
 
 const App = () => {
   const regions = ['Filter by region', 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania']; // regions
-  const [array, setArray] = useState([]);
-  const [infoShow, setInfoShow] = useState([]);
+  const [arrayCountries, setArrayCountries] = useState([]); // list of countries
+  const [infoShow, setInfoShow] = useState({modal: false, countryInfo: []}); // show about country
   const {theme, toggleTheme} = useContext(ThemeContext); // select theme
-  const [filter, setFilter] = useState();
-  const [openInfoShow, setopenInfoShow] = useState(false);
+  const [filterRegion, setFilterRegion] = useState({dropdown: false, filterName: ''}); // filter for regions
+  const [filterCountry, setFilterCountry] = useState(''); // filter name country
   const [hasError, setError] = useState({error: 'not error', show: false});
 
+  // all list countries
   useEffect(() => {
     async function fetchData() {
       const res = await fetch(`https://restcountries.eu/rest/v2/all`);
       res
       .json()
       .then(res => {
-          setArray(res)
+          setArrayCountries(res)
           setError({error: 'not error', show: false})
       })
     }
     fetchData();
   }, []);
 
+  // filter country name
   const changeSearch = async(country) => {
     let filterSelect = country.target.value;
+    setFilterCountry(filterSelect);
 
     if(filterSelect) {
       const res = await fetch(`https://restcountries.eu/rest/v2/name/${filterSelect}`);
 
       if (res.status === 200) {
         res.json().then(
-          res => setArray(res),
+          res => setArrayCountries(res),
           setError({error: 'not error', show: false})
         )
       }
@@ -46,22 +50,28 @@ const App = () => {
       if (res.status === 404) {
         res.json().then(res => setError({error: res.message, show: true}))
       }
+    } else {
+      const res = await fetch(`https://restcountries.eu/rest/v2/all`);
+      res
+      .json()
+      .then(res => {
+          setArrayCountries(res)
+          setError({error: 'not error', show: false})
+      })
     }
   }
 
 
-  const changeFilter = async (filter) => {
-    let filterForRegion = filter.target.value;
-    setFilter(filterForRegion)
+  const changeFilter = async (name) => {
+    setFilterRegion({filterName: name, dropdown: false});
 
-    if(filterForRegion) {
-
-      if (filterForRegion !== 'Filter by region') {
-        const res = await fetch(`https://restcountries.eu/rest/v2/region/${filterForRegion}`);
+    if(name) {
+      if (name !== 'Filter by region') {
+        const res = await fetch(`https://restcountries.eu/rest/v2/region/${name}`);
 
         if (res.status === 200) {
           res.json().then(
-            res => setArray(res),
+            res => setArrayCountries(res),
             setError({error: 'not error', show: false})
           )
         }
@@ -74,7 +84,7 @@ const App = () => {
         res
         .json()
         .then(res => {
-            setArray(res)
+            setArrayCountries(res)
             setError({error: 'not error', show: false})
         })
       } 
@@ -83,49 +93,70 @@ const App = () => {
 
   const openCard = async(name) => {
     if(name) {
-      setopenInfoShow(true);
       const res = await fetch(`https://restcountries.eu/rest/v2/name/${name}`);
-      res.json().then(res => setInfoShow(res));
-      
+      res.json().then(res => setInfoShow({countryInfo: res, modal: true }));
+    }
+  }
+
+  const openDropdown = () => {
+    if(filterRegion.dropdown === false) {
+      setFilterRegion({filterName: filterRegion.filterName, dropdown: true})
+    } else {
+      setFilterRegion({filterName: filterRegion.filterName, dropdown: false})
     }
   }
 
   const openInfo = () => {
-    if(openInfoShow === true) {
-      setopenInfoShow(false)
+    if(infoShow.modal === true) {
+      setInfoShow({countryInfo: [], modal: false})
     }
   }
 
+  const currentTheme = AppTheme[theme];
+
   return (
-    <div className="wrapper" theme={theme}>
+    <div className="wrapper" style={{backgroundColor: `${currentTheme.backgroundBody}`}}>
 
       <Header theme={theme} toggleTheme={toggleTheme} />
       
       <div className="wrapper__box">
 
         {
-          openInfoShow === true ?
+          infoShow.modal === true ?
            <div> 
             <div className="btn">
-              <button className="back" onClick={openInfo}><img className="arrow" src={Back} alt="" />Back</button>
+              <button
+                style={{
+                  backgroundColor: `${currentTheme.backgroundColor}`,
+                  color: `${currentTheme.textColor}`,
+                  boxShadow: `${currentTheme.boxShadow}`
+                }}
+                className="back" onClick={openInfo}><img className="arrow" src={Back} alt="" />Back</button>
             </div>
             <main className="content-info">
                 {
-                infoShow ? infoShow.map((name, index) => 
-                <Info key={index} data={name} />) : ''
+                infoShow.countryInfo ? infoShow.countryInfo.map((name, index) => 
+                <Info theme={theme} key={index} data={name} />) : ''
               }
             </main>
           </div>
           :
 
           <div>
-            <Filter changeSearch={changeSearch} filter={filter} changeFilter={changeFilter} regions={regions} />
+            <Filter
+              theme={theme}
+              changeSearch={changeSearch}
+              filterCountry={filterCountry}
+              openDropdown={openDropdown}
+              filter={filterRegion}
+              changeFilter={changeFilter}
+              regions={regions} />
 
             <main className="content">
               {
                 hasError.show  === true ? <div>{hasError.error}</div> :
-                array.map((country, index) => (
-                  <Card key={index} country={country} openCard={openCard} />
+                arrayCountries.map((country, index) => (
+                  <Card theme={theme} key={index} country={country} openCard={openCard} />
                 ))
               }
             </main>

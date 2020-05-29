@@ -1,23 +1,9 @@
-$col-white: #fff;
-$col-black: #000;
-
 $font-size-title: 22px;
 $font-size-subtitle: 17px;
 
 $font-weight-light: 300;
 $font-weight-normal: 600;
 $font-weight-bold: 800;
-
-
-
-.theme-dark {
-  --color-bg: hsl(209, 23%, 22%);
-}
-
-.theme-light {
-  --color-bg: hsl(0, 0%, 98%);
-}
-
 
 .filters {
 
@@ -29,11 +15,11 @@ $font-weight-bold: 800;
 
       .search {
         display: flex;
-        background-color: hsl(0, 0%, 52%);
         height: 56px;
         max-width: 478px;
         width: 100%;
         border-radius: 4px;
+        margin-right: 75px;
 
         &__icon {
           align-self: center;
@@ -46,7 +32,7 @@ $font-weight-bold: 800;
           padding: 20px 12px 18px 12px;
           border: none;
           height: min-content;
-          background-color: hsl(0, 0%, 52%);
+          background-color: transparent;
           align-self: center;
           letter-spacing: .4px;
           font-size: 13px;
@@ -59,36 +45,96 @@ $font-weight-bold: 800;
       }
 
       .filter {
-        max-width: 200px;
+        cursor: pointer;
+        max-width: 166px;
         width: 100%;
         padding: 20px 12px 18px 20px;
-        background-color: hsl(0, 0%, 52%);
         color: #fff;
         border-radius: 4px;
         border: none;
-        -moz-appearance: none;
-        -webkit-appearance: none;
-        appearance: none;
+        background-repeat: no-repeat;
+        background-size: 48px 10px;
+        background-position-x: right;
+        background-position-y: center;
+      }
 
-        &:focus {
-          outline: none;
-        }
+      .list {
+        border-radius: 4px;
+        position: absolute;
+        max-width: 200px;
+        width: 100%;
+        padding: 0;
+        right: 0;
+        margin: 64px 80px 0 0;
+        list-style: none;
 
-        &::-ms-expand {  /* для IE */ 
-          display: none;
+        > li {
+          cursor: pointer;
+          padding: 6px 24px 6px 24px;
+
+          &:first-child {
+            padding-top: 12px;
+          }
+
+          &:last-child {
+            padding-bottom: 12px;
+          }
+
+          &:hover {
+            background-color: #fafafa;
+          }
         }
       }
     }
   }
 
-@media screen and (max-width: 767px) {
-    
+@media screen and (max-width: 768px) {
 .filters {
 
     &__box {
-      padding: 50px 18px;
+      padding: 50px 30px;
       flex-direction: column;
-    }
 
+      .search {
+        max-width: inherit;
+        height: 93px;
+        margin-right: 0;
+        margin-bottom: 84px;
+
+        &__input {
+          font-size: 23px;
+        }
+
+        &__icon {
+          padding: 0 40px 0 64px;
+          width: 32px;
+          height: 32px;
+        }
+      }
+
+      .filter {
+        padding: 33px 12px 18px 45px;
+        max-width: calc(100% - 56px);
+        background-size: 60px 13px;
+        height: 40px;
+        font-size: 23px;
+      }
+
+      .list {
+        width: calc(100% - 60px);
+        font-size: 23px;
+        max-width: inherit;
+        right: inherit;
+        bottom: -190px;
+
+        > li {
+          padding: 9px 24px 9px 46px;
+
+          &:first-child {
+            padding-top: 32px;
+          }
+        }
+      }
+    }
   }
 }
