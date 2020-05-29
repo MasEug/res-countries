@@ -31,18 +31,22 @@ function Info(props) {
                     </div>
                 </div>
 
-                <div className="border-countries">
-                    <span className="name">Border Countries: </span>
-                    {props.data.borders.map((bord, index) => (
-                        <span
-                          style={{
-                            backgroundColor: `${currentTheme.backgroundColor}`,
-                            boxShadow: `${currentTheme.boxShadow}`,
-                            color: `${currentTheme.textColor}`
-                          }}
-                          className="tag" key={index}>{bord} </span>
-                    ))}
-                </div>
+                {
+                    props.data.borders.length === 0 ? ''
+                     : <div className="border-countries">
+                        <span className="name">Border Countries: </span>
+                        {props.data.borders.map((bord, index) => (
+                            <span
+                            style={{
+                                backgroundColor: `${currentTheme.backgroundColor}`,
+                                boxShadow: `${currentTheme.boxShadow}`,
+                                color: `${currentTheme.textColor}`
+                            }}
+                            className="tag" key={index}>{bord} </span>
+                        ))}
+                    </div>
+                }
+                
             </div>
             
         </div>
