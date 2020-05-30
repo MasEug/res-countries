@@ -12,14 +12,15 @@ function Filter(props) {
         <div className="search" style={{backgroundColor: `${currentTheme.backgroundColor}`, boxShadow: `${currentTheme.boxShadow}`}}>
             <img src={props.theme === "theme-light" ? SearchBlack : Search} alt="search" className="search__icon" />
             <input
-            style={{color: `${currentTheme.textColor}`, placeholder: `${currentTheme.textColor}`}}
-            className="search__input" 
-            onChange={props.changeSearch}
-            type="text"
-            placeholder="Search for a country..."
-            name="country"
-            autoComplete="off"
-            value={props.filterCountry}
+              aria-label="country"
+              style={{color: `${currentTheme.textColor}`, placeholder: `${currentTheme.textColor}`}}
+              className="search__input" 
+              onChange={props.changeSearch}
+              type="text"
+              placeholder="Search for a country..."
+              name="country"
+              autoComplete="off"
+              value={props.filterCountry}
             />
         </div>
 
