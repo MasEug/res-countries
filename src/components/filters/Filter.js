@@ -46,13 +46,13 @@ function Filter(props) {
           }}
           className="list">
           {props.regions.map((region, index)=> (
-                <li value={region} key={index} onClick={() => props.changeFilter(region)}>{region}</li>
+                <li
+                  value={region} key={index} onClick={() => props.changeFilter(region)}>{region}</li>
             ))}
         </ul> : ''
         }
 
-        
-
+      
       </div>
     </div>
   );

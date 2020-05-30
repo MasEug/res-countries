@@ -34,17 +34,18 @@ function Info(props) {
                 {
                     props.data.borders.length === 0 ? ''
                      : <div className="border-countries">
-                        <span className="name">Border Countries: </span>
+                        <div className="name">Border Countries: </div>
                         {props.data.borders.map((bord, index) => (
-                            <span
+                            <div
                             style={{
                                 backgroundColor: `${currentTheme.backgroundColor}`,
                                 boxShadow: `${currentTheme.boxShadow}`,
                                 color: `${currentTheme.textColor}`
                             }}
-                            className="tag" key={index}>{bord} </span>
+                            className="tag" key={index}>{bord} </div>
                         ))}
                     </div>
+
                 }
                 
             </div>
