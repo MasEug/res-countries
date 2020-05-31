@@ -21,6 +21,10 @@ $font-weight-bold: 800;
     .btn {
       padding: 78px 80px 80px 80px;
 
+      button:focus {
+        outline: none;
+      }
+
       .back {
         cursor: pointer;
         padding: 12px 38px 11px 32px;

@@ -1,11 +1,10 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import Card from './components/cards/Card';
 import Header from './components/header/Header';
 import Filter from './components/filters/Filter';
 import Info from './components/info/Info';
 import Back from './back.svg';
 import BackWhite from './back-white.svg';
-import { ThemeContext } from './ThemeProvider';
 import AppTheme from './AppTheme';
 
 import './App.scss';
@@ -14,10 +13,14 @@ const App = () => {
   const regions = ['Filter by region', 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania']; // regions
   const [arrayCountries, setArrayCountries] = useState([]); // list of countries
   const [infoShow, setInfoShow] = useState({modal: false, countryInfo: []}); // show about country
-  const {theme, toggleTheme} = useContext(ThemeContext); // select theme
   const [filterRegion, setFilterRegion] = useState({dropdown: false, filterName: ''}); // filter for regions
   const [filterCountry, setFilterCountry] = useState(''); // filter name country
   const [hasError, setError] = useState({error: 'not error', show: false});
+  const [themeSelect, setThemeSelect] = useState('theme-light');
+
+  const toggleTheme = () => {
+    setThemeSelect(themeSelect === "theme-light" ? "theme-dark" : "theme-light");
+  };
 
   // all list countries
   useEffect(() => {
@@ -116,12 +119,12 @@ const App = () => {
     }
   }
 
-  const currentTheme = AppTheme[theme];
+  const currentTheme = AppTheme[themeSelect];
 
   return (
     <div className="wrapper" style={{backgroundColor: `${currentTheme.backgroundBody}`}}>
 
-      <Header theme={theme} toggleTheme={toggleTheme} />
+      <Header theme={themeSelect} toggleTheme={toggleTheme} />
       
       <div className="wrapper__box">
 
@@ -136,12 +139,12 @@ const App = () => {
                   boxShadow: `${currentTheme.boxShadow}`
                 }}
                 className="back" onClick={openInfo}><img className="arrow"
-                src={theme === 'theme-dark' ? BackWhite : Back} alt="" />Back</button>
+                src={themeSelect === 'theme-dark' ? BackWhite : Back} alt="" />Back</button>
             </div>
             <main className="content-info">
                 {
                 infoShow.countryInfo ? infoShow.countryInfo.map((name, index) => 
-                <Info theme={theme} key={index} data={name} />) : ''
+                <Info theme={themeSelect} key={index} data={name} />) : ''
               }
             </main>
           </div>
@@ -149,7 +152,7 @@ const App = () => {
 
           <div>
             <Filter
-              theme={theme}
+              theme={themeSelect}
               changeSearch={changeSearch}
               filterCountry={filterCountry}
               openDropdown={openDropdown}
@@ -161,7 +164,7 @@ const App = () => {
               {
                 hasError.show  === true ? <div>{hasError.error}</div> :
                 arrayCountries.map((country, index) => (
-                  <Card theme={theme} key={index} country={country} openCard={openCard} />
+                  <Card theme={themeSelect} key={index} country={country} openCard={openCard} />
                 ))
               }
             </main>
