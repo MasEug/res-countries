@@ -22,6 +22,8 @@ function Filter(props) {
               autoComplete="off"
               value={props.filterCountry}
             />
+
+
         </div>
 
         <div
@@ -35,9 +37,8 @@ function Filter(props) {
             <div className="name">
               {props.filter.filterName ? props.filter.filterName : 'Filter by region'}
             </div>
-        </div>
 
-        {
+            {
           props.filter.dropdown === true ? 
           <ul
           style={{
@@ -52,6 +53,9 @@ function Filter(props) {
             ))}
         </ul> : ''
         }
+        </div>
+
+
 
       
       </div>
